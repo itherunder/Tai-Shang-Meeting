@@ -1,7 +1,6 @@
-import { useContractReader } from "eth-hooks";
-import { ethers } from "ethers";
+import { Card } from "antd";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 /**
  * web3 props can be passed from '../App.jsx' into your local view component for use
@@ -9,114 +8,64 @@ import { Link } from "react-router-dom";
  * @param {*} readContracts contracts from current chain already pre-loaded using ethers contract module. More here https://docs.ethers.io/v5/api/contract/contract/
  * @returns react component
  **/
-function Home({ yourLocalBalance, readContracts }) {
-  // you can also use hooks locally in your component of choice
-  // in this case, let's keep track of 'purpose' variable from our contract
-  const purpose = useContractReader(readContracts, "YourContract", "purpose");
+function Home({ address }) {
+  const [loading, setLoading] = useState(true);
+  const [isWhiteListed, setIsWhiteListed] = useState(false);
+  const [data, setData] = useState(null);
+
+  const queryWhiteList = async () => {
+    setLoading(true);
+    if (!address) return;
+    try {
+      var res = await fetch(`http://localhost:8080/api/is_whitelisted?addr=${address}`);
+      res = await res.json();
+      console.log("res", res);
+    } catch (err) {
+      alert(err);
+    }
+    setIsWhiteListed(res?.is_whitelisted);
+    setData(res?.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (!address) return;
+    queryWhiteList();
+  }, [address]);
 
   return (
     <div>
-      <div style={{ margin: 32 }}>
-        <span style={{ marginRight: 8 }}>📝</span>
-        This Is Your App Home. You can start editing it in{" "}
-        <span
-          className="highlight"
-          style={{ marginLeft: 4, /* backgroundColor: "#f9f9f9", */ padding: 4, borderRadius: 4, fontWeight: "bolder" }}
+      {loading ? (
+        <p style={{ marginTop: "10px" }}>loading...</p>
+      ) : isWhiteListed ? (
+        <Card
+          size="small"
+          title={<b>{"会议标题：" + data?.meeting_info?.name}</b>}
+          extra={<a href={data?.meeting_info?.url}>More</a>}
+          style={{ width: 400, margin: "auto", marginTop: "10px" }}
         >
-          packages/react-app/src/views/Home.jsx
-        </span>
-      </div>
-      <div style={{ margin: 32 }}>
-        <span style={{ marginRight: 8 }}>✏️</span>
-        Edit your smart contract{" "}
-        <span
-          className="highlight"
-          style={{ marginLeft: 4, /* backgroundColor: "#f9f9f9", */ padding: 4, borderRadius: 4, fontWeight: "bolder" }}
-        >
-          YourContract.sol
-        </span>{" "}
-        in{" "}
-        <span
-          className="highlight"
-          style={{ marginLeft: 4, /* backgroundColor: "#f9f9f9", */ padding: 4, borderRadius: 4, fontWeight: "bolder" }}
-        >
-          packages/hardhat/contracts
-        </span>
-      </div>
-      {!purpose ? (
-        <div style={{ margin: 32 }}>
-          <span style={{ marginRight: 8 }}>👷‍♀️</span>
-          You haven't deployed your contract yet, run
-          <span
-            className="highlight"
-            style={{
-              marginLeft: 4,
-              /* backgroundColor: "#f9f9f9", */ padding: 4,
-              borderRadius: 4,
-              fontWeight: "bolder",
-            }}
-          >
-            yarn chain
-          </span>{" "}
-          and{" "}
-          <span
-            className="highlight"
-            style={{
-              marginLeft: 4,
-              /* backgroundColor: "#f9f9f9", */ padding: 4,
-              borderRadius: 4,
-              fontWeight: "bolder",
-            }}
-          >
-            yarn deploy
-          </span>{" "}
-          to deploy your first contract!
-        </div>
+          <p style={{ textAlign: "left", marginLeft: "50px" }}>
+            <b>主讲人：</b>
+            {data?.meeting_info?.hoster}
+          </p>
+          <p style={{ textAlign: "left", marginLeft: "50px" }}>
+            <b>会议描述：</b>
+            {data?.meeting_info?.description}
+          </p>
+          <p style={{ textAlign: "left", marginLeft: "50px" }}>
+            <b>时间：</b>
+            {data?.meeting_info?.period}
+          </p>
+          <p style={{ textAlign: "left", marginLeft: "50px" }}>
+            <b>状态：</b>
+            {data?.meeting_info?.status}
+          </p>
+        </Card>
       ) : (
-        <div style={{ margin: 32 }}>
-          <span style={{ marginRight: 8 }}>🤓</span>
-          The "purpose" variable from your contract is{" "}
-          <span
-            className="highlight"
-            style={{
-              marginLeft: 4,
-              /* backgroundColor: "#f9f9f9", */ padding: 4,
-              borderRadius: 4,
-              fontWeight: "bolder",
-            }}
-          >
-            {purpose}
-          </span>
-        </div>
+        <p style={{ marginTop: "10px" }}>
+          <a href={data?.apply_url}>Apply for meeting</a>
+        </p>
       )}
-
-      <div style={{ margin: 32 }}>
-        <span style={{ marginRight: 8 }}>🤖</span>
-        An example prop of your balance{" "}
-        <span style={{ fontWeight: "bold", color: "green" }}>({ethers.utils.formatEther(yourLocalBalance)})</span> was
-        passed into the
-        <span
-          className="highlight"
-          style={{ marginLeft: 4, /* backgroundColor: "#f9f9f9", */ padding: 4, borderRadius: 4, fontWeight: "bolder" }}
-        >
-          Home.jsx
-        </span>{" "}
-        component from
-        <span
-          className="highlight"
-          style={{ marginLeft: 4, /* backgroundColor: "#f9f9f9", */ padding: 4, borderRadius: 4, fontWeight: "bolder" }}
-        >
-          App.jsx
-        </span>
-      </div>
-      <div style={{ margin: 32 }}>
-        <span style={{ marginRight: 8 }}>💭</span>
-        Check out the <Link to="/hints">"Hints"</Link> tab for more tips.
-      </div>
-      <div style={{ margin: 32 }}>
-        <span style={{ marginRight: 8 }}>🛠</span>
-        Tinker with your smart contract using the <Link to="/debug">"Debug Contract"</Link> tab.
-      </div>
     </div>
   );
 }
