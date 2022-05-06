@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import { Card, Spin } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
 
@@ -35,37 +35,39 @@ function Home({ address }) {
 
   return (
     <div>
-      {loading ? (
-        <p style={{ marginTop: "10px" }}>loading...</p>
-      ) : isWhiteListed ? (
-        <Card
-          size="small"
-          title={<b>{"会议标题：" + data?.meeting_info?.name}</b>}
-          extra={<a href={data?.meeting_info?.url}>More</a>}
-          style={{ width: 400, margin: "auto", marginTop: "10px" }}
-        >
-          <p style={{ textAlign: "left", marginLeft: "50px" }}>
-            <b>主讲人：</b>
-            {data?.meeting_info?.hoster}
-          </p>
-          <p style={{ textAlign: "left", marginLeft: "50px" }}>
-            <b>会议描述：</b>
-            {data?.meeting_info?.description}
-          </p>
-          <p style={{ textAlign: "left", marginLeft: "50px" }}>
-            <b>时间：</b>
-            {data?.meeting_info?.period}
-          </p>
-          <p style={{ textAlign: "left", marginLeft: "50px" }}>
-            <b>状态：</b>
-            {data?.meeting_info?.status}
-          </p>
-        </Card>
-      ) : (
-        <p style={{ marginTop: "10px" }}>
-          <a href={data?.apply_url}>Apply for meeting</a>
-        </p>
-      )}
+      <Spin spinning={loading}>
+        {
+          isWhiteListed ? (
+            <Card
+              size="small"
+              title={<b>{"会议标题：" + data?.meeting_info?.name}</b>}
+              extra={<a href={data?.meeting_info?.url}>More</a>}
+              style={{ width: 400, margin: "auto", marginTop: "10px" }}
+            >
+              <p style={{ textAlign: "left", marginLeft: "50px" }}>
+                <b>主讲人：</b>
+                {data?.meeting_info?.hoster}
+              </p>
+              <p style={{ textAlign: "left", marginLeft: "50px" }}>
+                <b>会议描述：</b>
+                {data?.meeting_info?.description}
+              </p>
+              <p style={{ textAlign: "left", marginLeft: "50px" }}>
+                <b>时间：</b>
+                {data?.meeting_info?.period}
+              </p>
+              <p style={{ textAlign: "left", marginLeft: "50px" }}>
+                <b>状态：</b>
+                {data?.meeting_info?.status}
+              </p>
+            </Card>
+          ) : (
+            <p style={{ marginTop: "10px" }}>
+              <a href={data?.apply_url}>Apply for meeting</a>
+            </p>
+          )
+        }
+      </Spin>
     </div>
   );
 }
