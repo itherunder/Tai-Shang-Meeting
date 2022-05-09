@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
  * @param {*} readContracts contracts from current chain already pre-loaded using ethers contract module. More here https://docs.ethers.io/v5/api/contract/contract/
  * @returns react component
  **/
-function Home({ address }) {
+function Home({ address, signer }) {
   const [loading, setLoading] = useState(true);
   const [isWhiteListed, setIsWhiteListed] = useState(false);
   const [data, setData] = useState(null);
@@ -17,7 +17,21 @@ function Home({ address }) {
     setLoading(true);
     if (!address) return;
     try {
-      var res = await fetch(`http://localhost:8080/api/is_whitelisted?addr=${address}`);
+      var sig = await signer.signMessage("queryWhiteList");
+      // var res = await fetch(`http://localhost:8080/api/is_whitelisted?addr=${address}`);
+      var res = await fetch('https://faasbyleeduckgo.gigalixirapp.com/api/v1/run?name=Meeting&func_name=get_meeting', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          params: [
+            address,
+            "queryWhiteList",
+            sig,
+          ],
+        }),
+      });
       res = await res.json();
       console.log("res", res);
     } catch (err) {

@@ -29,7 +29,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, Subgraph } from "./views";
+import { Home, PutMeeting, ExampleUI, Hints, Subgraph } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -260,9 +260,12 @@ function App(props) {
         <Menu.Item key="/Tai-Shang-Meeting-Verifier/">
           <Link to="/Tai-Shang-Meeting-Verifier/">App Home</Link>
         </Menu.Item>
-        <Menu.Item key="/Tai-Shang-Meeting-Verifier/debug">
-          <Link to="/Tai-Shang-Meeting-Verifier/debug">Debug Contracts</Link>
+        <Menu.Item key="/Tai-Shang-Meeting-Verifier/put_meeting">
+          <Link to="/Tai-Shang-Meeting-Verifier/put_meeting">Put Meeting</Link>
         </Menu.Item>
+        {/* <Menu.Item key="/Tai-Shang-Meeting-Verifier/debug">
+          <Link to="/Tai-Shang-Meeting-Verifier/debug">Debug Contracts</Link>
+        </Menu.Item> */}
         {/* <Menu.Item key="/hints">
           <Link to="/hints">Hints</Link>
         </Menu.Item>
@@ -280,16 +283,19 @@ function App(props) {
       <Switch>
         <Route exact path="/Tai-Shang-Meeting-Verifier/">
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
-          <Home address={address} />
+          <Home address={address} signer={userSigner} />
         </Route>
-        <Route exact path="/Tai-Shang-Meeting-Verifier/debug">
+        <Route exact path="/Tai-Shang-Meeting-Verifier/put_meeting">
+          <PutMeeting />
+        </Route>
+        {/* <Route exact path="/Tai-Shang-Meeting-Verifier/debug"> */}
           {/*
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI
                 and give you a form to interact with it locally
             */}
 
-          <Contract
+          {/* <Contract
             name="YourContract"
             price={price}
             signer={userSigner}
@@ -298,7 +304,7 @@ function App(props) {
             blockExplorer={blockExplorer}
             contractConfig={contractConfig}
           />
-        </Route>
+        </Route> */}
         {/* <Route path="/hints">
           <Hints
             address={address}
