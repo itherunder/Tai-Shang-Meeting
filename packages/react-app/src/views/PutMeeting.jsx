@@ -64,19 +64,19 @@ export default function PutMeeting({ address, signer }) {
       res = await response.json();
       if (res?.result?.status === "ok") {
         Modal.success({
-          title: "Success",
-          content: "Successfully put meeting with key: " + key,
+          title: "成功",
+          content: "输入会议成功，其key为 " + key,
         });
       } else {
         Modal.error({
-          title: "Error",
-          content: "Failed to put meeting",
+          title: "错误",
+          content: "输入会议失败，请重试",
         });
       }
     } catch (err) {
       Modal.error({
-        title: "Error",
-        content: "Failed to put meeting: " + err,
+        title: "错误",
+        content: "输入会议失败，错误原因：" + err,
       });
     }
     setLoading(false);
@@ -131,7 +131,7 @@ export default function PutMeeting({ address, signer }) {
             message: '请输入会议时间',
           },
         ]}>
-          <RangePicker showTime format="YYYY-MM-DD HH:mm" />
+          <RangePicker showTime format="YYYY-MM-DD HH:mm" style={{ width: "100%" }} />
         </Form.Item>
         <Form.Item {...buttonItemLayout}>
           <Button type="primary" htmlType="submit" style={{ width: "100%" }}>提交</Button>
