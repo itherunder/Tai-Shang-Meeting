@@ -257,11 +257,11 @@ function App(props) {
         USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
       />
       <Menu style={{ textAlign: "center", marginTop: 40 }} selectedKeys={[location.pathname]} mode="horizontal">
-        <Menu.Item key="/Tai-Shang-Meeting-Verifier/">
-          <Link to="/Tai-Shang-Meeting-Verifier/">App Home</Link>
+        <Menu.Item key="/">
+          <Link to="/">App Home</Link>
         </Menu.Item>
-        <Menu.Item key="/Tai-Shang-Meeting-Verifier/put_meeting">
-          <Link to="/Tai-Shang-Meeting-Verifier/put_meeting">Put Meeting</Link>
+        <Menu.Item key="/put_meeting">
+          <Link to="/put_meeting">Put Meeting</Link>
         </Menu.Item>
         {/* <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
@@ -281,11 +281,11 @@ function App(props) {
       </Menu>
 
       <Switch>
-        <Route exact path="/Tai-Shang-Meeting-Verifier/">
+        <Route exact path="/">
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
           <Home address={address} signer={userSigner} />
         </Route>
-        <Route exact path="/Tai-Shang-Meeting-Verifier/put_meeting">
+        <Route exact path="/put_meeting">
           <PutMeeting address={address} signer={userSigner} />
         </Route>
         {/* <Route exact path="/debug"> */}
