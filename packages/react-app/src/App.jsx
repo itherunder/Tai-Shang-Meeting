@@ -263,8 +263,8 @@ function App(props) {
         <Menu.Item key="/Tai-Shang-Meeting-Verifier/put_meeting">
           <Link to="/Tai-Shang-Meeting-Verifier/put_meeting">Put Meeting</Link>
         </Menu.Item>
-        {/* <Menu.Item key="/Tai-Shang-Meeting-Verifier/debug">
-          <Link to="/Tai-Shang-Meeting-Verifier/debug">Debug Contracts</Link>
+        {/* <Menu.Item key="/debug">
+          <Link to="/debug">Debug Contracts</Link>
         </Menu.Item> */}
         {/* <Menu.Item key="/hints">
           <Link to="/hints">Hints</Link>
@@ -286,9 +286,9 @@ function App(props) {
           <Home address={address} signer={userSigner} />
         </Route>
         <Route exact path="/Tai-Shang-Meeting-Verifier/put_meeting">
-          <PutMeeting />
+          <PutMeeting address={address} signer={userSigner} />
         </Route>
-        {/* <Route exact path="/Tai-Shang-Meeting-Verifier/debug"> */}
+        {/* <Route exact path="/debug"> */}
           {/*
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI
