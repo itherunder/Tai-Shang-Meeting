@@ -28,26 +28,17 @@ export default function PutMeeting({ address, signer }) {
       return;
     }
     try {
-      var response = await fetch("https://faasbyleeduckgo.gigalixirapp.com/api/v1/run?name=Meeting&func_name=rand_msg", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            "params": []
-        })
-      });
-      var res = await response.json();
-      var key = res?.result;
-      if (!res || !key) {
+      var key = values?.key;
+      if (!key) {
         Modal.error({
           title: "Error",
           content: "Failed to get key",
         });
       }
+      delete values.key; // delete values.key
       var meeting_info = JSON.stringify(values)
       var sig = await signer.signMessage(meeting_info);
-      response = await fetch('https://faasbyleeduckgo.gigalixirapp.com/api/v1/run?name=Meeting&func_name=put_meeting', {
+      var response = await fetch('https://faasbyleeduckgo.gigalixirapp.com/api/v1/run?name=Meeting&func_name=put_meeting', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +52,7 @@ export default function PutMeeting({ address, signer }) {
           ]
         })
       });
-      res = await response.json();
+      var res = await response.json();
       if (res?.result?.status === "ok") {
         Modal.success({
           title: "成功",
@@ -93,6 +84,14 @@ export default function PutMeeting({ address, signer }) {
         size="middle"
         style={{ width: "50%" }}
       >
+        <Form.Item label="会议key：" name="key" rules={[
+          {
+            required: true,
+            message: '请输入会议的key',
+          },
+        ]}>
+          <Input />
+        </Form.Item>
         <Form.Item label="会议标题：" name="title" rules={[
           {
             required: true,
