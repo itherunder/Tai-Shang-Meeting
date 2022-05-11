@@ -1,7 +1,7 @@
 {
   "name": "@scaffold-eth/react-app",
   "version": "1.0.0",
-  "homepage": "https://itherunder.github.io/Tai-Shang-Meeting-Verifier/",
+  "homepage": "https://itherunder.github.io/Tai-Shang-Meeting/",
   "browserslist": {
     "production": [
       ">0.2%",
