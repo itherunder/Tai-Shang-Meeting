@@ -12,7 +12,7 @@ export default function Header({ link, title, subTitle }) {
 }
 
 Header.defaultProps = {
-  link: "https://github.com/WeLightProject/Tai-Shang-Meeting-Verifier",
-  title: "Tai-Shang-Meeting-Verifier",
-  subTitle: "verfier for Tai-Shang-Meeting!",
+  link: "https://github.com/itherunder/Tai-Shang-Meeting",
+  title: "Tai-Shang-Meeting",
+  subTitle: "Tai-Shang-Meeting!",
 };

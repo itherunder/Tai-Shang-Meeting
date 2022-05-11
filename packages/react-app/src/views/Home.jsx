@@ -22,8 +22,23 @@ function Home({ address, signer }) {
     setLoading(true);
     if (!address) return;
     try {
-      var sig = await signer.signMessage("I'm query for the meeting: " + key);
-      var response = await fetch('https://faasbyleeduckgo.gigalixirapp.com/api/v1/run?name=Meeting&func_name=get_meeting', {
+      var response = await fetch('https://faasbyleeduckgo.gigalixirapp.com/api/v1/run?name=Meeting&func_name=get_unsigned_msg', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          params: [],
+        }),
+      });
+      var res = await response.json();
+      if (!res?.result) {
+        setLoading(false);
+        return;
+      }
+      var msg = res?.result;
+      var sig = await signer.signMessage(msg);
+      response = await fetch('https://faasbyleeduckgo.gigalixirapp.com/api/v1/run?name=Meeting&func_name=get_meeting', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,12 +47,11 @@ function Home({ address, signer }) {
           params: [
             key,
             address,
-            "I'm query for the meeting: " + key,
             sig,
           ],
         }),
       });
-      var res = await response.json();
+      res = await response.json();
       if (res?.result?.status === "ok") {
         setIsWhiteListed(true);
         setData(JSON.parse(res?.result?.payload));
