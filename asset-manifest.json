@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Tai-Shang-Meeting/static/css/main.da82f4a9.chunk.css",
+    "main.js": "/Tai-Shang-Meeting/static/js/main.9f52e2b7.chunk.js",
+    "main.js.map": "/Tai-Shang-Meeting/static/js/main.9f52e2b7.chunk.js.map",
+    "runtime-main.js": "/Tai-Shang-Meeting/static/js/runtime-main.70131235.js",
+    "runtime-main.js.map": "/Tai-Shang-Meeting/static/js/runtime-main.70131235.js.map",
+    "static/css/2.0dcad14b.chunk.css": "/Tai-Shang-Meeting/static/css/2.0dcad14b.chunk.css",
+    "static/js/2.8d41918d.chunk.js": "/Tai-Shang-Meeting/static/js/2.8d41918d.chunk.js",
+    "static/js/2.8d41918d.chunk.js.map": "/Tai-Shang-Meeting/static/js/2.8d41918d.chunk.js.map",
+    "index.html": "/Tai-Shang-Meeting/index.html",
+    "static/css/2.0dcad14b.chunk.css.map": "/Tai-Shang-Meeting/static/css/2.0dcad14b.chunk.css.map",
+    "static/css/main.da82f4a9.chunk.css.map": "/Tai-Shang-Meeting/static/css/main.da82f4a9.chunk.css.map",
+    "static/js/2.8d41918d.chunk.js.LICENSE.txt": "/Tai-Shang-Meeting/static/js/2.8d41918d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.70131235.js",
+    "static/css/2.0dcad14b.chunk.css",
+    "static/js/2.8d41918d.chunk.js",
+    "static/css/main.da82f4a9.chunk.css",
+    "static/js/main.9f52e2b7.chunk.js"
+  ]
+}
